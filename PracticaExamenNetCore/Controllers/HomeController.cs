@@ -15,17 +15,17 @@ namespace PracticaExamenNetCore.Controllers
             this.repo= repo;
         }
 
-        public async Task<IActionResult> Index(int? posicion, int idserie)
+        public async Task<IActionResult> Index(int? idserie,int posicion=1)
         {
-            if (posicion == null)
+            if (idserie == null)
             {
-                posicion = 1;
+                //idserie = 1;
                 return View();
             }
             else
             {
                 ViewBag.IDSERIE = idserie;
-                PaginarPersonajes model = await this.repo.GetGrupoPersonajesSerieAsync(posicion.Value, idserie);
+                PaginarPersonajes model = await this.repo.GetGrupoPersonajesSerieAsync(posicion, idserie.Value);
                 List<Personaje> personajes = model.Personajes;
                 int numRegistros = model.NumRegistros;
                 ViewBag.REGISTROS = numRegistros;
@@ -33,6 +33,7 @@ namespace PracticaExamenNetCore.Controllers
                 return View(personajes);
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Index(int? idserie)
         {
