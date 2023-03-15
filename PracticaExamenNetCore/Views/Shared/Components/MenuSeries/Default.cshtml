@@ -1,24 +1,15 @@
 ﻿@model List<Serie>
-<form>
+
 <div class="dropdown">
-    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-        Menu coches
+    <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        Menu series
     </a>
-
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            @foreach (Serie serie in Model)
-            {
-                <li>
-                    <a asp-controller="Home"
-                   asp-action="Index"
-                   asp-route-idserie="@serie.IdSerie"
-                       class="dropdown-item">
-                        @serie.NombreSerie
-                    </a>
-                    <img src="@serie.Imagen" style="width: 120px">
-                </li>
-            }
-        </ul>
-
+        @foreach (Serie serie in Model)
+        {
+            <li>
+                <a href="@Url.Action("Index", "Home", new { idserie = serie.IdSerie })" class="dropdown-item">@serie.NombreSerie</a>
+            </li>
+        }
+    </ul>
 </div>
-</form>

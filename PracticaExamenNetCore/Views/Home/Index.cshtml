@@ -1,8 +1,55 @@
-﻿@{
+﻿@model List<Personaje>
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+    int numeroregistros = 0;
+    //int rango = 0;
+    int idserie = 0;
+    int numeropagina = 1;
+    if (ViewBag.REGISTROS != null)
+    {
+        numeroregistros = (int)ViewBag.REGISTROS;
+        idserie = ViewBag.IDSERIE;
+        //rango = ViewBag.RANGO;
+    }
+}
+<h1>hola</h1>
+@if(Model!=null){
+<ul class="list-group list-group-horizontal">
+    @for (int i = 1; i <= numeroregistros; i += 2)
+    {
+        <li class="list-group-item list-group-item-primary">
+            <a asp-action="Index"
+                asp-controller="Home"
+                asp-route-posicion="@i"
+                asp-route-idserie="@idserie">
+                Pag @numeropagina
+            </a>
+        </li>
+        numeropagina += 1;
+    }
+</ul>
+<br/>
+    <table class="table">
+        <thead class="thead-info">
+            <tr>
+                <th scope="col">ID PERSONAJE</th>
+                <th scope="col">PERSONAJE</th>
+                <th scope="col">IDSERIE</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        @foreach (Personaje personaje in Model)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@personaje.IdPersonaje</th>
+                    <td>@personaje.NombrePersonaje</td>
+                    <td>@personaje.IdSerie</td>
+                    <td><img src="@personaje.Imagen" style="width:150px"/></td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}

@@ -12,7 +12,6 @@ namespace PracticaExamenNetCore.ViewComponents
         {
             this.repo = repo;
         }
-
         public async Task<IViewComponentResult> InvokeAsync()
         {
             List<Serie> series = this.repo.GetSeries();
